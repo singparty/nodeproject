@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.thirdparty.common.persistence.UserAnswersMapper">
+	<!-- select -->
+	<select id="getUserAnswers" resultType="UserAnswers" parameterType="UserAnswers">
+		select
+				id
+				, user_id as userId
+				, question_id as questionId
+				, content 
+				, created_at as createdAt
+				, updated_at as updatedAt
+		from	user_answers
+		where	user_id = {userId}
+		
+	</select>
+	<!-- create -->
+	<insert id="insertUserAnswers" parameterType="UserAnswers">
+		insert into user_answers(user_id,question_id, content)
+		values({userId},{questionId},{content})
+	</insert>
+	<!-- update -->
+	<update id="updateUserAnswers" parameterType="UserAnswers">
+		update user_answers
+		set    content = {content}
+		    ,  updated_at = current_timestamp()
+		where  user_id = {userId}
+		and    question_id = {questionId}
+	</update>
+	
+</mapper>
+
+
